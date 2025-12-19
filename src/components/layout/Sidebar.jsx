@@ -7,15 +7,17 @@ import {
   Settings,
   Home
 } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext.jsx';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
+  const { t } = useLanguage();
   
   const menuItems = [
-    { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-    { path: '/analytics', label: 'Analytics', icon: BarChart3 },
-    { path: '/gate-control', label: 'Gate Control', icon: DoorOpen },
-    { path: '/settings', label: 'Settings', icon: Settings },
+    { path: '/', key: 'dashboard', icon: LayoutDashboard },
+    { path: '/analytics', key: 'analytics', icon: BarChart3 },
+    { path: '/gate-control', key: 'gateControl', icon: DoorOpen },
+    { path: '/settings', key: 'settings', icon: Settings },
   ];
   
   const isActive = (path) => location.pathname === path;
@@ -75,7 +77,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                   `}
                 >
                   <Icon className="w-5 h-5" />
-                  <span className="font-medium">{item.label}</span>
+                  <span className="font-medium">{t(item.key)}</span>
                 </Link>
               );
             })}

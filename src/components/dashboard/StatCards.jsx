@@ -1,6 +1,7 @@
 import React from 'react';
 import { Users, AlertTriangle, DoorOpen, TrendingUp } from 'lucide-react';
 import Badge from '../common/Badge';
+import { useLanguage } from '../../context/LanguageContext.jsx';
 
 const StatCard = ({ title, value, icon: Icon, variant = 'default', subtitle }) => {
   const variants = {
@@ -49,35 +50,37 @@ const StatCard = ({ title, value, icon: Icon, variant = 'default', subtitle }) =
 };
 
 const StatCards = ({ stats }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <StatCard
-        title="Real-time Crowd Density"
+        title={t('realtimeCrowdDensity')}
         value={stats.realTimeCrowdDensity?.toLocaleString() || '0'}
         icon={Users}
         variant="primary"
-        subtitle={`${stats.currentCapacity || 0}% capacity`}
+        subtitle={`${stats.currentCapacity || 0}%`}
       />
       <StatCard
-        title="Active Alerts"
+        title={t('activeAlerts')}
         value={stats.activeAlerts || 0}
         icon={AlertTriangle}
         variant="warning"
-        subtitle="Requires attention"
+        subtitle={t('alertsSubtitle')}
       />
       <StatCard
-        title="Open Gates"
+        title={t('openGates')}
         value={`${stats.openGates || 0}/${stats.totalGates || 0}`}
         icon={DoorOpen}
         variant="success"
-        subtitle="Currently operational"
+        subtitle={t('openGatesSubtitle')}
       />
       <StatCard
-        title="Capacity Status"
+        title={t('capacityStatus')}
         value={`${stats.currentCapacity || 0}%`}
         icon={TrendingUp}
         variant="default"
-        subtitle="Current utilization"
+        subtitle={t('capacitySubtitle')}
       />
     </div>
   );
